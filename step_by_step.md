@@ -33,3 +33,23 @@ You will see something like in the terminal:
 and if you open your browser at the presented link:
 
 <img src="media/first_npm_run_dev_browser.png" alt="npm create vue at CLI" style="width:300px;"/>
+
+
+## Adding Bootstrap CSS Framework to the project
+
+from vue directory...
+
+```sh
+npm install bootstrap
+npm install sass
+```
+
+then add this to App.vue
+
+```html
+<style lang="scss">
+@import "node_modules/bootstrap/scss/bootstrap.scss";
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css");
+</style>
+```
+
