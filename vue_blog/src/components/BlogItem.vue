@@ -1,4 +1,5 @@
 <script setup>
+import VueMarkdown from 'vue-markdown-render'
 defineProps({
   title: {
     type: String,
@@ -12,8 +13,9 @@ defineProps({
 </script>
 
 <template>
-  <div>
-    <h1>{{ msg }}</h1>
-    <p>{{ content }}</p>
+  <div class="bg-light border border-2 border-secondary rounded">
+    <h1>{{ title }}</h1>
+    <hr>
+    <vue-markdown :source="content"></vue-markdown>
   </div>
 </template>
