@@ -53,3 +53,25 @@ then add this to App.vue
 </style>
 ```
 
+## Publish via AWS Amplify
+
+- pre-requisites:
+  - An AWS account
+  - A Github account and repo
+  - Authorise AWS Amplify to access your repos
+- Add amplify.yaml
+- create app in Amplify (see video in /blog_content)
+
+We are effectively just hosting some static content here - however that content is dynamically linked to a GitHub repo, auto-updates and has an automated build step - a pretty great start to our CI/CD pipeline (another blog post there!) 
+
+Interactivity is provided by the Vue.js framework - but any real backend capability, such as authentication and persistent data store will need to be added later.
+
+## Add a pinia store
+
+We want to be able to work with list of blogs, and create new blog posts - so we use a 'Pinia store' to do this.
+The initial store can a couple of actions (methods):
+- add_post()
+- get_post_by_id()
+posts are stored in the Pinia state which has a couple of properties:
+- blog_posts: a simple list of blog post objects, and,
+- current_blog_post: the current blog post (the one the user is viewing)
