@@ -29,13 +29,18 @@ export const useBlogStore = defineStore('blogStore', {
             if (b.id == id) return b
         }
     },
-    add_post(title, content) {
-        const post = {
-            id: uuidv4(),
-            title: title,
-            content: content,
+    save_post(blog) {
+        
+        if (blog.id) {
+            // update existing
+            const existing_post = this.get_post_by_id(blog.id)
+            existing_post.title = blog.title
+            existing_post.content = blog.content
+        } else {
+            // set an id and add to list
+            blog.id = uuidv4()
+            this.blog_posts.push(blog)
         }
-        this.blog_posts.push(post)
     }
   }
 })

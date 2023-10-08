@@ -18,9 +18,6 @@ import BlogList from './components/BlogList.vue';
           <RouterLink class="nav-link m-1 text-white" to="/new">New</RouterLink>
         </li>
         <li class="nav-item">
-          <RouterLink class="nav-link m-1 text-white" to="/blog">Blog</RouterLink>
-        </li>
-        <li class="nav-item">
           <a class="nav-link m-1 text-light" href="https://www.markdownguide.org/basic-syntax/" target="guide">Markdown Guide</a>
         </li>
       </ul>
