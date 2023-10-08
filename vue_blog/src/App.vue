@@ -5,7 +5,7 @@ import BlogList from './components/BlogList.vue';
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-lg navbar-top navbar-border-bottom bg-primary sticky-top">
+  <nav class="navbar navbar-expand-sm navbar-top navbar-border-bottom bg-primary sticky-top">
     <div class="container">
       <span class="navbar-brand">
         <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="50" height="50" />
@@ -25,10 +25,10 @@ import BlogList from './components/BlogList.vue';
   </nav>
   <div class="container-fluid mt-1">
     <div class="row">
-      <div class="col-lg-10">
+      <div class="col-sm-10 mb-1">
         <RouterView />
       </div>
-      <div class="col-lg-2">
+      <div class="col-sm-2 mb-1">
         <BlogList :blogs="useBlogStore().blog_posts" ></BlogList>
       </div>
     </div>

@@ -74,6 +74,9 @@ function save_blog() {
     </div>
     <div class="col">
       <BlogItem v-if="blog.content || blog.title" :id="blog.id || ''" :title="blog.title || ''" :content="blog.content || ''" :edit_button_enabled="false"></BlogItem>
+      <div v-else class="bg-light rounded border border-2 h-100 text-center">
+        Enter some content...
+      </div>
     </div>
   </div>
 </template>
