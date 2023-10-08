@@ -13,7 +13,7 @@ defineProps({
 </script>
 
 <template>
-  <div class="bg-light border border-2 border-secondary rounded">
+  <div class="bg-light border border-2 rounded p-2">
     <h1>{{ title }}</h1>
     <hr>
     <vue-markdown :source="content"></vue-markdown>
