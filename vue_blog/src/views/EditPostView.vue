@@ -61,10 +61,10 @@ function save_blog() {
   </div>
   <div class="row">
     <div class="col">
-      <input class="form-control" disabled v-model="blog.id">
-      <input class="form-control" v-model="blog.title" />
-      <textarea class="form-control" v-model="blog.content" rows="8"></textarea>
-      <button class="btn btn-sm btn-success" @click="save_blog">Save (TODO)</button>
+      <input class="form-control mb-1" disabled v-model="blog.id">
+      <input class="form-control mb-1" v-model="blog.title" />
+      <textarea class="form-control mb-1" v-model="blog.content" rows="8"></textarea>
+      <button class="btn btn-sm btn-success" @click="save_blog">Save</button>
     </div>
     <div class="col">
       <BlogItem v-if="blog.content || blog.title" :blog="blog" :edit_button_enabled="false"></BlogItem>

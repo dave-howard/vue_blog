@@ -88,7 +88,6 @@ export const useBlogStore = defineStore('blogStore', {
         }
     },
     save_post(blog) {
-        
         if (blog.id != 'new') {
             // update existing
             const existing_post = this.get_post_by_id(blog.id)
@@ -99,6 +98,14 @@ export const useBlogStore = defineStore('blogStore', {
             blog.id = uuidv4()
             this.blog_posts.push(blog)
         }
+        // save post (add/create)
+        const body = {
+            session_id: this.session_id,
+            blog
+        }
+        axios
+            .post(lamdba_get_blog_url, body)
+            .catch(console.log)
     }
   }
 })
