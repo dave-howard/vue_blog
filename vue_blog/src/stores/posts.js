@@ -21,6 +21,26 @@ export const useBlogStore = defineStore('blogStore', {
     blog_posts: null,
   }),
   actions: {
+    login(username, password) {
+        console.log('login')
+        const body = {
+            username,
+            password,
+        }
+        axios
+            .post(lamdba_get_blog_url, body)
+            .then(response => {
+                console.log(response.data)
+                this.session_id = response.data.session_id
+            })
+            .catch(console.log)
+            .finally(() => {
+                console.log('done')
+            })
+    },
+    logout() {
+        this.session_id = null
+    },
     get_posts() {
         console.log('getting posts')
         const body = {}
