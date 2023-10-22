@@ -25,9 +25,9 @@ My plan is to blog about and share what I learn along the way - I might even ope
 
 **Articulating ideas:**
 
-I am a big believer that a great way to learn is to teach - the act of thinking about something so that you can explain it as clearly as possible to someone else clarifuies those same ideas in your head. I also sometimes highlights things you don't really understand.
+I am a big believer that a great way to learn is to teach - the act of thinking about something so that you can explain it as clearly as possible to someone else clarifies those same ideas in your head. I also sometimes highlights things you don't really understand.
 
 **Community engagement**
 
-I love a good natter about interesting tech, and I will writing about things that I find interesting. So... I should probably thin about adding a comments feature on this site... hmmm... maybe I should have gone with Wordpress?
+I love a good natter about interesting tech, and I will writing about things that I find interesting. So... I should probably think about adding a comments feature on this site... hmmm... maybe I should have gone with Wordpress?
 

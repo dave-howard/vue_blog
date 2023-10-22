@@ -29,7 +29,7 @@ import BlogList from './components/BlogList.vue';
         <RouterView />
       </div>
       <div class="col-sm-2 mb-1">
-        <BlogList :blogs="useBlogStore().blog_posts" ></BlogList>
+        <BlogList :blogs="useBlogStore().blog_posts || []" ></BlogList>
       </div>
     </div>
   </div>

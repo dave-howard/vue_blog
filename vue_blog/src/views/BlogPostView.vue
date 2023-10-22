@@ -10,6 +10,7 @@ const props = defineProps({
 })
 
 const blog = ref(null)
+const blogs = useBlogStore()
 
 const get_blog = () => {
   // get blog post from database by id
@@ -18,21 +19,26 @@ const get_blog = () => {
 
 onMounted(() => {
   //first load
+  console.log('onMounted')
   get_blog()
 })
 
 onBeforeUpdate(() => {
   // when props change
-  get_blog()
+  console.log('onBeforeUpdate')
+  if (blogs.blog_posts!=null) get_blog()
 })
 
 </script>
 
 <template>
+  <div class="bg-info d-none">
+    {{ blogs.current_blog_post }}
+  </div>
   <div class="row">
     <div class="col">   
-      <BlogItem v-if="blog" :id="blog.id" :title="blog.title" :content="blog.content"></BlogItem>
-      <div v-else class="alert alert-warning">Nope</div>
+      <BlogItem v-if="blog" :blog="blogs.current_blog_post"></BlogItem>
+      <div v-else class="alert alert-warning">Content loading...</div>
     </div>
   </div>
 </template>

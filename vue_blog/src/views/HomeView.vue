@@ -1,4 +1,7 @@
 <script setup>
+import { useBlogStore } from '../stores/posts.js'
+
+useBlogStore().get_posts()
 </script>
 
 <template>

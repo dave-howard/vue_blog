@@ -73,7 +73,7 @@ function save_blog() {
       <button class="btn btn-sm btn-success" @click="save_blog">Save (TODO)</button>
     </div>
     <div class="col">
-      <BlogItem v-if="blog.content || blog.title" :id="blog.id || ''" :title="blog.title || ''" :content="blog.content || ''" :edit_button_enabled="false"></BlogItem>
+      <BlogItem v-if="blog.content || blog.title" :blog="blog" :edit_button_enabled="false"></BlogItem>
       <div v-else class="bg-light rounded border border-2 h-100 text-center">
         Enter some content...
       </div>
