@@ -15,14 +15,13 @@ const blog = ref({})
 let last_blog_id = null
 
 const get_blog = () =>{
-  if (!props.blog_id && blog.value.id != null) {
+  if (props.blog_id == undefined && blog.value.id == undefined) {
     blog.value = {
-      id: null,
+      id: 'new',
       title: 'new title',
       content: 'new item content',
     }
     last_blog_id = null
-    //console.log(blog)
     return
   }
   if (props.blog_id != last_blog_id) {
@@ -43,18 +42,13 @@ const get_blog = () =>{
 
 onMounted(() => {
   //first load
-  console.log('mounted')
   get_blog()
 })
 
 onBeforeUpdate(() => {
   // when props change
-  console.log('before update')
   get_blog()
 })
-
-//const blog_title = ref('my title')
-//const blog_content = ref('### heading 2\n\n- item one\n- item two\n')
 
 function save_blog() {
   useBlogStore().save_post(blog.value)

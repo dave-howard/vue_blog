@@ -1,7 +1,8 @@
 <script setup>
 import { useBlogStore } from '../stores/posts.js'
 
-useBlogStore().get_posts()
+
+if (!useBlogStore().blog_posts) useBlogStore().get_posts()
 </script>
 
 <template>

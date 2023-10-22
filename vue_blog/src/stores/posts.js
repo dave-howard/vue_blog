@@ -16,6 +16,7 @@ function uuidv4() {
 export const useBlogStore = defineStore('blogStore', {
   state: ()=>({
     version: '0.0.1',
+    session_id: null,
     current_blog_post: null,
     blog_posts: null,
   }),
@@ -68,7 +69,7 @@ export const useBlogStore = defineStore('blogStore', {
     },
     save_post(blog) {
         
-        if (blog.id) {
+        if (blog.id != 'new') {
             // update existing
             const existing_post = this.get_post_by_id(blog.id)
             existing_post.title = blog.title
