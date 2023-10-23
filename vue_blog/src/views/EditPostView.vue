@@ -20,6 +20,7 @@ const get_blog = () =>{
       id: 'new',
       title: 'new title',
       content: 'new item content',
+      active: false
     }
     last_blog_id = null
     return
@@ -31,7 +32,8 @@ const get_blog = () =>{
       blog.value = {
         id: blog_data.id,
         title: blog_data.title,
-        content: blog_data.content
+        content: blog_data.content,
+        active: blog_data.active,
       }
       last_blog_id = blog_data.id
       return
@@ -57,13 +59,18 @@ function save_blog() {
 
 <template>
   <div class="row">
-    <h1>Create new post</h1>
+    <h1>{{ !blog.id || blog.id.startsWith('blog') ? 'Edit' : 'Create new' }} post</h1>
   </div>
   <div class="row">
     <div class="col">
       <input class="form-control mb-1" disabled v-model="blog.id">
       <input class="form-control mb-1" v-model="blog.title" />
       <textarea class="form-control mb-1" v-model="blog.content" rows="8"></textarea>
+      <div class="form-check">
+        <label class="form-check-label" for="active_checkbox">Active</label>
+        <input class="form-check-input" type="checkbox" v-model="blog.active" id="active_checkbox">
+      </div>
+
       <button class="btn btn-sm btn-success" @click="save_blog">Save</button>
     </div>
     <div class="col">
