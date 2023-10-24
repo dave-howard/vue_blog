@@ -15,6 +15,7 @@ const blogs = useBlogStore()
 const get_blog = () => {
   // get blog post from database by id
   blog.value = useBlogStore().get_post_by_id(props.blog_id)
+  console.log(`blog.value for '${props.blog_id}'=${blog.value}`)
 }
 
 onMounted(() => {
@@ -26,7 +27,7 @@ onMounted(() => {
 onBeforeUpdate(() => {
   // when props change
   console.log('onBeforeUpdate')
-  if (blogs.blog_posts!=null) get_blog()
+  if (!blog.value || blog.value.id!=props.blog_id) get_blog()
 })
 
 </script>

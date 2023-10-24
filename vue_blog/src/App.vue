@@ -1,7 +1,12 @@
 <script setup>
+import { onMounted } from 'vue';
 import { RouterLink, RouterView } from 'vue-router'
 import { useBlogStore } from './stores/posts.js'
-import BlogList from './components/BlogList.vue';
+import BlogList from '../src/components/BlogList.vue'
+
+onMounted(() => {
+  useBlogStore().get_posts()
+})
 </script>
 
 <template>

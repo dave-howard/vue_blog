@@ -20,6 +20,14 @@ export const useBlogStore = defineStore('blogStore', {
     current_blog_post: null,
     blog_posts: null,
   }),
+  getters: {
+    pinned_posts() {
+        // return all pinned posts
+        if (!this.blog_posts) return []
+        const posts = this.blog_posts.filter(p => (p.pinned))
+        return posts
+    },
+  },
   actions: {
     login(username, password) {
         console.log('login')
@@ -45,6 +53,7 @@ export const useBlogStore = defineStore('blogStore', {
     },
     get_posts() {
         console.log('getting posts')
+        if (!this.blog_posts) this.blog_posts = []
         const body = {
             session_id: this.session_id,
         }
@@ -52,6 +61,12 @@ export const useBlogStore = defineStore('blogStore', {
             .post(lamdba_get_blog_url, body)
             .then(response => {
                 console.log(response.data)
+                for (const post of response.data.posts) {
+                    const match = this.blog_posts.filter(p => p.id==post.id)
+                    if (!match)
+                        this.blog_posts.push(post)  
+                }
+
                 this.blog_posts=response.data.posts
             })
             .catch(console.log)
@@ -61,37 +76,37 @@ export const useBlogStore = defineStore('blogStore', {
     },
     get_post_by_id(id) {
         // load blog posts if there are none
-        console.log(`get_post_by_id(${id})`)
-        if (this.blog_posts==null) {
-            const body = {
-                session_id: this.session_id,
-            }
-            axios
-            .post(lamdba_get_blog_url, body)
-            .then(response => {
-                console.log(response.data)
-                this.blog_posts=response.data.posts
-            })
-            .catch(console.log)
-            .finally(() => {
-                console.log(`get_post_by_id(${id}) finally`)
-                for (const b of this.blog_posts) {
-                    if (b.id == id) {
-                        this.current_blog_post = b
-                        console.log(`get_post_by_id(${id}) returning`)
-                        return b
-                    }
-                }
-            })
-            return
-        }
-        console.log('checking existing list for '+id)
+        if (!this.blog_posts) this.blog_posts = []
         for (const b of this.blog_posts) {
-            if (b.id == id) {
+            if (b.id == id && b.content) {
                 this.current_blog_post = b
+                console.log('Return from existing list')
                 return b
             }
         }
+        const body = {
+            blog_id: id
+        }
+        axios
+            .post(lamdba_get_blog_url, body)
+            .then(response => {
+                this.current_blog_post = response.data.post
+            })
+            .finally(() => {
+                if (!this.blog_posts) this.blog_posts = []
+                for (const b of this.blog_posts) {
+                    if (b.id == id) {
+                        b.content = this.current_blog_post.content
+                        this.current_blog_post = b
+                        console.log('Updating existing list and returning')
+                        console.log(b)
+                        return b
+                    }
+                }
+                this.blog_posts.push(this.current_blog_post)
+                console.log('Added to existing list and returning')
+                return this.current_blog_post
+            })
     },
     save_post(blog) {
         blog.saving = true

@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { useBlogStore } from '../stores/posts.js'
 import LoginForm from '../components/LoginForm.vue'
+import BlogItem from '../components/BlogItem.vue'
 
 const show_login = ref(false)
 
@@ -19,4 +20,11 @@ if (!useBlogStore().blog_posts) useBlogStore().get_posts()
       <LoginForm v-if="show_login"></LoginForm>
     </div>
   </div>
+  <template v-for="post in useBlogStore().pinned_posts" :key="post.id">
+    <div class="row mb-2">
+      <div class="col">
+        <BlogItem :blog="post"></BlogItem>
+      </div>
+    </div>
+  </template>
 </template>
