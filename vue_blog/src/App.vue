@@ -8,7 +8,7 @@ import BlogList from './components/BlogList.vue';
   <nav class="navbar navbar-expand-sm navbar-top navbar-border-bottom bg-primary sticky-top">
     <div class="container">
       <span class="navbar-brand">
-        <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="50" height="50" />
+        <img alt="Vue logo" class="logo" src="@/assets/codypylogo.png" height="60" />
       </span>
       <ul class="nav navbar-nav text-white">
         <li class="nav-item">
