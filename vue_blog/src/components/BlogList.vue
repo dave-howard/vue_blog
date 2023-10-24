@@ -16,7 +16,9 @@ defineProps({
     <hr>
     <template  v-for="blog in blogs" :key="blog.id">
       <RouterLink class="m-1" :to="`/blog/${blog.id}`">
-        {{blog.title}}<i v-if="useBlogStore().session_id" :class="{'bi-check':blog.active, 'bi-x':!blog.active}"></i>
+        {{blog.title}}
+        <i v-if="useBlogStore().session_id" :class="{'bi-check':blog.active, 'bi-x':!blog.active}"></i>
+        <i v-if="useBlogStore().session_id" :class="{'bi-pin-angle-fill':blog.pinned, 'bi-pin-angle':!blog.pinned}"></i>
       </RouterLink>
       <RouterLink v-if="useBlogStore().session_id" :to="`/edit/${blog.id}`"><i class="bi bi-pen"></i></RouterLink>
       <br>

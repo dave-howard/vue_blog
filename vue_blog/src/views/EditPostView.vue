@@ -34,6 +34,7 @@ const get_blog = () =>{
         title: blog_data.title,
         content: blog_data.content,
         active: blog_data.active,
+        pinned: blog_data.pinned,
       }
       last_blog_id = blog_data.id
       return
@@ -70,8 +71,12 @@ function save_blog() {
         <label class="form-check-label" for="active_checkbox">Active</label>
         <input class="form-check-input" type="checkbox" v-model="blog.active" id="active_checkbox">
       </div>
+      <div class="form-check">
+        <label class="form-check-label" for="pinned_checkbox">Pinned</label>
+        <input class="form-check-input" type="checkbox" v-model="blog.pinned" id="pinned_checkbox">
+      </div>
 
-      <button class="btn btn-sm btn-success" @click="save_blog">Save</button>
+      <button class="btn btn-sm btn-success" @click="save_blog">{{ blog.saving ? 'Saving' : 'Save' }}</button>
     </div>
     <div class="col">
       <BlogItem v-if="blog.content || blog.title" :blog="blog" :edit_button_enabled="false"></BlogItem>

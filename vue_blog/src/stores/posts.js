@@ -94,6 +94,7 @@ export const useBlogStore = defineStore('blogStore', {
         }
     },
     save_post(blog) {
+        blog.saving = true
         if (blog.id == 'new') {
             // set a new id and add to list
             blog.id = uuidv4()
@@ -104,6 +105,7 @@ export const useBlogStore = defineStore('blogStore', {
             existing_post.title = blog.title
             existing_post.content = blog.content
             existing_post.active = blog.active
+            existing_post.pinned = blog.pinned
         }
         // save post (add/create)
         const body = {
@@ -112,6 +114,9 @@ export const useBlogStore = defineStore('blogStore', {
         }
         axios
             .post(lamdba_get_blog_url, body)
+            .then(()=> {
+                blog.saving=false
+            })
             .catch(console.log)
     }
   }
