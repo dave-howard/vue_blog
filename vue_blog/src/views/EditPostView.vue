@@ -20,7 +20,8 @@ const get_blog = () =>{
       id: 'new',
       title: 'new title',
       content: 'new item content',
-      active: false
+      active: false,
+      pinned: false,
     }
     last_blog_id = null
     return
@@ -64,6 +65,7 @@ function save_blog() {
   </div>
   <div class="row">
     <div class="col">
+      <a class="mb-1" href="https://www.markdownguide.org/basic-syntax/" target="guide">Markdown Guide</a>
       <input class="form-control mb-1" disabled v-model="blog.id">
       <input class="form-control mb-1" v-model="blog.title" />
       <textarea class="form-control mb-1" v-model="blog.content" rows="8"></textarea>

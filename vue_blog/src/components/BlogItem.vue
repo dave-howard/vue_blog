@@ -18,7 +18,7 @@ defineProps({
 
 <template>
   <div class="bg-light border border-2 rounded p-2">
-    <h1>{{ blog.title }}</h1>
+    <h1 v-html="blog.title"></h1>
     <hr>
     <vue-markdown :source="blog.content"></vue-markdown>
     <template v-if="useBlogStore().session_id && edit_button_enabled">
