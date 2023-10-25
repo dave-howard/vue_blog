@@ -1,9 +1,11 @@
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import { RouterLink, RouterView } from 'vue-router'
 import { useBlogStore } from './stores/posts.js'
 import BlogList from '../src/components/BlogList.vue'
+import LoginForm from '../src/components/LoginForm.vue'
 
+const show_login = ref(false)
 onMounted(() => {
   useBlogStore().get_posts()
 })
@@ -22,9 +24,16 @@ onMounted(() => {
         <li v-if="useBlogStore().session_id" class="nav-item">
           <RouterLink class="nav-link m-1 text-white" to="/new">New</RouterLink>
         </li>
+        <li class="nav-item">
+          <i class="nav-link m-1 text-white" @click="show_login=!show_login"
+          :class="{'bi-person-fill':useBlogStore().session_id, 'bi-person':!useBlogStore().session_id}"></i>
+        </li>
       </ul>
     </div>
   </nav>
+  <div v-if="show_login" class="text-dark" style="position: relative;top: -30px;left: auto;right: 10px;height: 0px;z-index: 2000;width: 200px;float: right;">
+    <LoginForm></LoginForm>
+  </div>
   <div class="container-fluid mt-1">
     <div class="row">
       <div class="col-sm-10 mb-1">
