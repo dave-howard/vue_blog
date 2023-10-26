@@ -16,6 +16,9 @@ function uuidv4() {
 export const useBlogStore = defineStore('blogStore', {
   state: ()=>({
     version: '0.0.1',
+    view_status: {
+        show_login: false,
+    },
     session_id: null,
     current_blog_post: null,
     blog_posts: null,
@@ -25,6 +28,11 @@ export const useBlogStore = defineStore('blogStore', {
         // return all pinned posts
         if (!this.blog_posts) return []
         const posts = this.blog_posts.filter(p => (p.pinned))
+        posts.sort((a, b)=> {
+            if (a.modified && b.modified)
+                return a.modified < b.modified ? 1 : -1
+            return 0
+        })
         return posts
     },
   },

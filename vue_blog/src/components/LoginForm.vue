@@ -19,6 +19,9 @@ const password = ref('')
       <button class="btn btn-success" @click="useBlogStore().login(username, password)">Login</button>
     </template>
     <button v-if="useBlogStore().session_id" class="btn btn-danger" @click="useBlogStore().logout()">Logout</button>
+    <div class="position-absolute top-0 end-0">
+      <button type="button" class="btn btn-sm btn-danger m-1" @click="useBlogStore().view_status.show_login=false">&times;</button>
+    </div>
   </div>
 </template>
 

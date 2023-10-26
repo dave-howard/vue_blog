@@ -14,12 +14,20 @@ defineProps({
     default: true
   }
 })
+
+function display_date(d) {
+  const iso_date = new Date(d)
+    return iso_date.toLocaleDateString()
+}
 </script>
 
 <template>
-  <div class="bg-light border border-2 rounded p-2">
-    <h1 v-html="blog.title"></h1>
-    <hr>
+  <div class="bg-light border border-2 rounded p-2 mb-3">
+    <div class="bg-light rounded p-1">
+      <span class="display-5" v-html="blog.title"></span>
+      <small>{{ display_date(blog.modified) }}</small>
+    </div>
+    <hr class="border border-3 border-dark">
     <vue-markdown :source="blog.content"></vue-markdown>
     <template v-if="useBlogStore().session_id && edit_button_enabled">
       <hr>
