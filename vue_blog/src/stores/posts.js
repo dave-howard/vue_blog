@@ -131,6 +131,7 @@ export const useBlogStore = defineStore('blogStore', {
             .post(lamdba_get_blog_url, body)
             .then(()=> {
                 blog.saving=false
+                blog.saved=true
             })
             .catch(console.log)
     }

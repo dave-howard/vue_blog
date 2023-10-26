@@ -22,6 +22,7 @@ const get_blog = () =>{
       content: 'new item content',
       active: false,
       pinned: false,
+      saved: false,
     }
     last_blog_id = null
     return
@@ -36,6 +37,7 @@ const get_blog = () =>{
         content: blog_data.content,
         active: blog_data.active,
         pinned: blog_data.pinned,
+        saved: false,
       }
       last_blog_id = blog_data.id
       return
@@ -57,9 +59,16 @@ onBeforeUpdate(() => {
 function save_blog() {
   useBlogStore().save_post(blog.value)
 }
+
+function save_status() {
+  // return Save, Saved, Saving
+  if (blog.value.saving) return 'Saving...'
+  if (blog.value.saved) return 'Saved <i class="bi-check"></i>'
+  return 'Save'
+}
 </script>
 
-<template>
+<template v-if="blog.value">
   <div class="row">
     <h1>{{ !blog.id || blog.id.startsWith('blog') ? 'Edit' : 'Create new' }} post</h1>
   </div>
@@ -78,7 +87,7 @@ function save_blog() {
         <input class="form-check-input" type="checkbox" v-model="blog.pinned" id="pinned_checkbox">
       </div>
 
-      <button class="btn btn-sm btn-success" @click="save_blog">{{ blog.saving ? 'Saving' : 'Save' }}</button>
+      <button class="btn btn-sm btn-success" @click="save_blog" v-html="save_status()"></button>
     </div>
     <div class="col">
       <BlogItem v-if="blog.content || blog.title" :blog="blog" :edit_button_enabled="false"></BlogItem>
