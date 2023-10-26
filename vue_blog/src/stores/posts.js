@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
+import VueCookies from 'vue-cookies'
 
 const lamdba_get_blog_url = 'https://aaaq3sbldjqiyxv3ir6sl6bitu0oglta.lambda-url.eu-west-1.on.aws/'
 
@@ -19,11 +20,24 @@ export const useBlogStore = defineStore('blogStore', {
     view_status: {
         show_login: false,
     },
-    session_id: null,
+    user_data: {
+        session_id: null
+    },
     current_blog_post: null,
     blog_posts: null,
   }),
   getters: {
+    session_id() {
+        if (this.user_data && this.user_data.session_id) return this.user_data.session_id
+        if (this.user_cookie) {
+            this.user_data = this.user_cookie
+            return this.user_cookie.session_id
+        }
+        return null
+    },
+    user_cookie() {
+        return VueCookies.get('user')
+    },
     pinned_posts() {
         // return all pinned posts
         if (!this.blog_posts) return []
@@ -47,7 +61,9 @@ export const useBlogStore = defineStore('blogStore', {
             .post(lamdba_get_blog_url, body)
             .then(response => {
                 console.log(response.data)
-                this.session_id = response.data.session_id
+                this.user_data = {session_id: response.data.session_id}
+                VueCookies.set('user', this.user_data, "24h")
+                this.view_status.show_login = false
                 this.get_posts()
             })
             .catch(console.log)
@@ -56,7 +72,9 @@ export const useBlogStore = defineStore('blogStore', {
             })
     },
     logout() {
-        this.session_id = null
+        this.user_data = {session_id: null}
+        VueCookies.set('user', this.user_data, "24h")
+        this.view_status.show_login = false
         this.get_posts()
     },
     get_posts() {
