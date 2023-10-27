@@ -38,6 +38,17 @@ export const useBlogStore = defineStore('blogStore', {
     user_cookie() {
         return VueCookies.get('user')
     },
+    posts_sorted_by_modified() {
+        // return all posts
+        if (!this.blog_posts) return []
+        const posts = this.blog_posts
+        posts.sort((a, b)=> {
+            if (a.modified && b.modified)
+                return a.modified < b.modified ? 1 : -1
+            return 0
+        })
+        return posts
+    },
     pinned_posts() {
         // return all pinned posts
         if (!this.blog_posts) return []
