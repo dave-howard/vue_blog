@@ -1,7 +1,7 @@
 <script setup>
 import BlogItem from '../components/BlogItem.vue'
 import { useBlogStore } from '../stores/posts.js'
-import { ref, onMounted, onBeforeUpdate } from 'vue'
+import { ref, onMounted, onBeforeUpdate, onUpdated } from 'vue'
 
 const props = defineProps({
     blog_id : {
@@ -51,11 +51,27 @@ const get_blog = () =>{
 onMounted(() => {
   //first load
   get_blog()
+  // setup auto resize for textarea
+  const textarea = document.querySelector('textarea')
+  if (textarea) {
+    // eslint-disable-next-line no-undef
+    autosize(textarea)
+    textarea.style.height = textarea.scrollHeight - 4 + 'px';
+    textarea.focus()
+  }
 })
 
 onBeforeUpdate(() => {
   // when props change
   get_blog()
+})
+
+onUpdated(() => {
+  // setup auto resize for textarea
+  const textarea = document.querySelector('textarea')
+  // eslint-disable-next-line no-undef
+  autosize(textarea)
+  textarea.style.height = textarea.scrollHeight - 4 + 'px';
 })
 
 function save_blog() {
