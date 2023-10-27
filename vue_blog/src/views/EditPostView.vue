@@ -37,6 +37,8 @@ const get_blog = () =>{
         content: blog_data.content,
         active: blog_data.active,
         pinned: blog_data.pinned,
+        created: blog_data.created,
+        modified: blog_data.modified,
         saved: false,
       }
       last_blog_id = blog_data.id
@@ -68,7 +70,7 @@ function save_status() {
 }
 </script>
 
-<template v-if="blog.value">
+<template v-if="blog.id">
   <div class="row">
     <h1>{{ !blog.id || blog.id.startsWith('blog') ? 'Edit' : 'Create new' }} post</h1>
   </div>
