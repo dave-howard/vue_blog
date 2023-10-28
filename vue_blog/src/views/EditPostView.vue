@@ -1,7 +1,7 @@
 <script setup>
 import BlogItem from '../components/BlogItem.vue'
 import { useBlogStore } from '../stores/posts.js'
-import { ref, onMounted, onBeforeUpdate, onUpdated } from 'vue'
+import { ref, onMounted, onBeforeUpdate, onUpdated, watch } from 'vue'
 
 const props = defineProps({
     blog_id : {
@@ -29,23 +29,8 @@ const get_blog = () =>{
   }
   if (props.blog_id != last_blog_id) {
     const blog_data = useBlogStore().get_post_by_id(props.blog_id)
-    //create a copy of blog item so it is not updated until saved
-    if (blog_data) {
-      blog.value = {
-        id: blog_data.id,
-        title: blog_data.title,
-        content: blog_data.content,
-        active: blog_data.active,
-        pinned: blog_data.pinned,
-        created: blog_data.created,
-        modified: blog_data.modified,
-        saved: false,
-      }
-      last_blog_id = blog_data.id
-      return
-    }
+    if (blog_data) copy_blog_data(blog_data)
   }
-  console.log(`last_blog_id=${last_blog_id}`)
 }
 
 onMounted(() => {
@@ -74,6 +59,28 @@ onUpdated(() => {
   textarea.style.height = textarea.scrollHeight - 4 + 'px';
 })
 
+watch(
+  ()=>useBlogStore().current_blog_post,
+  (blog_data) => {
+    // update blog data when current blog item updated (if loaded as a result of page refresh)
+    copy_blog_data(blog_data)
+})
+
+function copy_blog_data(blog_data) {
+  //create a copy of blog item so store copy is not updated until saved
+  blog.value = {
+    id: blog_data.id,
+    title: blog_data.title,
+    content: blog_data.content,
+    active: blog_data.active,
+    pinned: blog_data.pinned,
+    created: blog_data.created,
+    modified: blog_data.modified,
+    saved: false,
+  }
+  last_blog_id = blog_data.id
+}
+
 function save_blog() {
   useBlogStore().save_post(blog.value)
 }
@@ -89,6 +96,7 @@ function save_status() {
 <template v-if="blog.id">
   <div class="row">
     <h1>{{ !blog.id || blog.id.startsWith('blog') ? 'Edit' : 'Create new' }} post</h1>
+    
   </div>
   <div class="row">
     <div class="col">
