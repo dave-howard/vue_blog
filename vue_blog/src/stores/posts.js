@@ -29,14 +29,11 @@ export const useBlogStore = defineStore('blogStore', {
   getters: {
     session_id() {
         if (this.user_data && this.user_data.session_id) return this.user_data.session_id
-        if (this.user_cookie) {
-            this.user_data = this.user_cookie
-            return this.user_cookie.session_id
+        if (VueCookies.get('user')) {
+            this.user_data = VueCookies.get('user')
+            return VueCookies.get('user').session_id
         }
         return null
-    },
-    user_cookie() {
-        return VueCookies.get('user')
     },
     posts_sorted_by_modified() {
         // return all posts
@@ -63,7 +60,6 @@ export const useBlogStore = defineStore('blogStore', {
   },
   actions: {
     login(username, password) {
-        console.log('login')
         const body = {
             username,
             password,
@@ -71,20 +67,16 @@ export const useBlogStore = defineStore('blogStore', {
         axios
             .post(lamdba_get_blog_url, body)
             .then(response => {
-                console.log(response.data)
                 this.user_data = {session_id: response.data.session_id}
                 VueCookies.set('user', this.user_data, "24h")
                 this.view_status.show_login = false
                 this.get_posts()
             })
             .catch(console.log)
-            .finally(() => {
-                console.log('done')
-            })
     },
     logout() {
-        this.user_data = {session_id: null}
-        VueCookies.set('user', this.user_data, "24h")
+        this.user_data = {}
+        VueCookies.remove('user')
         this.view_status.show_login = false
         this.get_posts()
     },
@@ -107,9 +99,6 @@ export const useBlogStore = defineStore('blogStore', {
                 this.blog_posts=response.data.posts
             })
             .catch(console.log)
-            .finally(() => {
-                console.log('done')
-            })
     },
     get_post_by_id(id) {
         // load blog posts if there are none
