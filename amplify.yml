@@ -30,7 +30,7 @@ test:
         - npx mochawesome-merge cypress/report/mochawesome-report/mochawesome*.json > cypress/report/mochawesome.json
         - pm2 kill
   artifacts:
-    baseDirectory: cypress
+    baseDirectory: /vue_blog/cypress
     configFilePath: '**/mochawesome.json'
     files:
       - '**/*.png'
