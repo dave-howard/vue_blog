@@ -16,6 +16,7 @@ test:
   phases:
     preTest:
       commands:
+        - cd vue_blog
         - npm ci
         - npm install -g pm2
         - npm install -g wait-on
@@ -30,7 +31,7 @@ test:
         - npx mochawesome-merge cypress/report/mochawesome-report/mochawesome*.json > cypress/report/mochawesome.json
         - pm2 kill
   artifacts:
-    baseDirectory: /vue_blog/cypress
+    baseDirectory: cypress
     configFilePath: '**/mochawesome.json'
     files:
       - '**/*.png'
