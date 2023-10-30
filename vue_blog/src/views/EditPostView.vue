@@ -40,8 +40,8 @@ onMounted(() => {
   const textarea = document.querySelector('textarea')
   if (textarea) {
     // eslint-disable-next-line no-undef
-    autosize(textarea)
-    textarea.style.height = textarea.scrollHeight - 4 + 'px';
+    //autosize(textarea)
+    //textarea.style.height = textarea.scrollHeight - 4 + 'px';
     textarea.focus()
   }
 })
@@ -54,9 +54,15 @@ onBeforeUpdate(() => {
 onUpdated(() => {
   // setup auto resize for textarea
   const textarea = document.querySelector('textarea')
-  // eslint-disable-next-line no-undef
-  autosize(textarea)
-  textarea.style.height = textarea.scrollHeight - 4 + 'px';
+  if (textarea) {
+    if (props.blog_id != last_blog_id) {
+      // eslint-disable-next-line no-undef
+      autosize(textarea)  
+      textarea.style.height = textarea.scrollHeight - 4 + 'px'
+      textarea.focus()
+      last_blog_id = props.blog_id
+    }
+  }
 })
 
 watch(
@@ -78,7 +84,6 @@ function copy_blog_data(blog_data) {
     modified: blog_data.modified,
     saved: false,
   }
-  last_blog_id = blog_data.id
 }
 
 function save_blog() {
@@ -99,7 +104,7 @@ function save_status() {
     
   </div>
   <div class="row">
-    <div class="col">
+    <div class="col-lg">
       <a class="mb-1" href="https://www.markdownguide.org/basic-syntax/" target="guide">Markdown Guide</a>
       <input class="form-control mb-1" disabled v-model="blog.id">
       <input class="form-control mb-1" v-model="blog.title" />

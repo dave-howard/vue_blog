@@ -124,8 +124,6 @@ export const useBlogStore = defineStore('blogStore', {
                     if (b.id == id) {
                         b.content = this.current_blog_post.content
                         this.current_blog_post = b
-                        console.log('Updating existing list and returning')
-                        console.log(b)
                         return b
                     }
                 }
