@@ -7,6 +7,7 @@ const password = ref('')
 
 <template>
   <div class="bg-light border border-2 rounded p-2 login-form">
+    <h5 class="my-2 border-bottom border-3 border-primary">Your Account</h5>
     <template v-if="!useBlogStore().session_id" >
       <div class="form-floating mb-3">
         <input v-model="username" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
