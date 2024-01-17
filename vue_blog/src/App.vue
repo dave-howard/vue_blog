@@ -29,10 +29,14 @@ onMounted(() => {
         </li>
       </ul>
     </div>
+    <div style="position: absolute;left: auto;right: 10px;height: 0px;z-index: 2000;">
+      <div v-if="useBlogStore().view_status.show_login" class="text-dark" style="position: relative;top: -20px;width: 200px;float: right;">
+        <LoginForm></LoginForm>
+      </div>
+    </div>
+   
   </nav>
-  <div v-if="useBlogStore().view_status.show_login" class="text-dark" style="position: relative;top: -20px;left: auto;right: 10px;height: 0px;z-index: 2000;width: 200px;float: right;">
-    <LoginForm></LoginForm>
-  </div>
+  
   <div class="container-fluid mt-1">
     <div class="row">
       <div class="col-sm-10 mb-1">
