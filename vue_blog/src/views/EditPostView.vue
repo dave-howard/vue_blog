@@ -100,25 +100,25 @@ function save_status() {
 
 <template v-if="blog.id">
   <div class="row">
-    <h1>{{ !blog.id || blog.id.startsWith('blog') ? 'Edit' : 'Create new' }} post</h1>
-    
+    <h1 class="text-center">{{ !blog.id || blog.id.startsWith('blog') ? 'Edit' : 'Create new' }} post</h1>
   </div>
   <div class="row">
     <div class="col-lg">
-      <a class="mb-1" href="https://www.markdownguide.org/basic-syntax/" target="guide">Markdown Guide</a>
-      <input class="form-control mb-1" disabled v-model="blog.id">
-      <input class="form-control mb-1" v-model="blog.title" />
-      <textarea class="form-control mb-1" v-model="blog.content" rows="8"></textarea>
-      <div class="form-check">
-        <label class="form-check-label" for="active_checkbox">Active</label>
-        <input class="form-check-input" type="checkbox" v-model="blog.active" id="active_checkbox">
-      </div>
-      <div class="form-check">
-        <label class="form-check-label" for="pinned_checkbox">Pinned</label>
-        <input class="form-check-input" type="checkbox" v-model="blog.pinned" id="pinned_checkbox">
-      </div>
+      <div class="bg-light border border-2 rounded p-2 mb-3">
+        <a class="mb-1" href="https://www.markdownguide.org/basic-syntax/" target="guide">Markdown Guide</a>
+        <input class="form-control mb-2 fw-bold" v-model="blog.title" />
+        <textarea class="form-control mb-1" v-model="blog.content" rows="8"></textarea>
+        <div class="form-check">
+          <label class="form-check-label" for="active_checkbox">Active</label>
+          <input class="form-check-input" type="checkbox" v-model="blog.active" id="active_checkbox">
+        </div>
+        <div class="form-check">
+          <label class="form-check-label" for="pinned_checkbox">Pinned</label>
+          <input class="form-check-input" type="checkbox" v-model="blog.pinned" id="pinned_checkbox">
+        </div>
 
-      <button class="btn btn-sm btn-success" @click="save_blog" v-html="save_status()"></button>
+        <button class="btn btn-sm btn-success" @click="save_blog" v-html="save_status()"></button>
+      </div>
     </div>
     <div class="col">
       <BlogItem v-if="blog.content || blog.title" :blog="blog" :edit_button_enabled="false"></BlogItem>
