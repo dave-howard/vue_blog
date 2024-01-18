@@ -106,18 +106,29 @@ function save_status() {
     <div class="col-lg">
       <div class="bg-light border border-2 rounded p-2 mb-3">
         <a class="mb-1" href="https://www.markdownguide.org/basic-syntax/" target="guide">Markdown Guide</a>
-        <input class="form-control mb-2 fw-bold" v-model="blog.title" />
+        <div class="bg-white sticky-top border border-3 rounded mb-1" style="top:86px">
+          <input class="form-control mb-2 fw-bold" v-model="blog.title" />
+          <div class="row text-center mb-1">
+            <div class="col">
+               <div class="form-check">
+                <label class="form-check-label" for="active_checkbox">Active</label>
+                <input class="form-check-input" type="checkbox" v-model="blog.active" id="active_checkbox">
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-check">
+                <label class="form-check-label" for="pinned_checkbox">Pinned</label>
+                <input class="form-check-input" type="checkbox" v-model="blog.pinned" id="pinned_checkbox">
+              </div>
+            </div>
+            <div class="col">
+              <button class="btn btn-sm btn-success" @click="save_blog" v-html="save_status()"></button>
+            </div>
+          </div>
+        </div>
+        
         <textarea class="form-control mb-1" v-model="blog.content" rows="8"></textarea>
-        <div class="form-check">
-          <label class="form-check-label" for="active_checkbox">Active</label>
-          <input class="form-check-input" type="checkbox" v-model="blog.active" id="active_checkbox">
-        </div>
-        <div class="form-check">
-          <label class="form-check-label" for="pinned_checkbox">Pinned</label>
-          <input class="form-check-input" type="checkbox" v-model="blog.pinned" id="pinned_checkbox">
-        </div>
-
-        <button class="btn btn-sm btn-success" @click="save_blog" v-html="save_status()"></button>
+        
       </div>
     </div>
     <div class="col">
